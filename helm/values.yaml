@@ -1,0 +1,12 @@
+# Default values for firstchart.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+hostname: chat.56788888.k8s.io
+image: anything
+minReplicas: 1
+maxReplicas: 3
+
+
+
+
+

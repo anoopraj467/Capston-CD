@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress 
+metadata:
+  name: chat-server-ingress
+  annotations:
+    kubernetes.io/ingress.class: addon-http-application-routing
+spec:
+  rules:
+    - host: {{ .Values.hostname }}
+      http: 
+        paths:
+          - backend:
+              service:
+                name: chat-service
+                port:
+                  number: 80
+            path: /
+            pathType: Prefix
+          
