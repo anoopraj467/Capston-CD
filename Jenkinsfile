@@ -52,7 +52,6 @@ pipeline {
                     echo "Waiting for end point..."
                     sleep 10
                     ENTRY_POINT = $(kubectl get ingress -o yaml | grep 'host')
-                    ENTRY_POINT = ${ENTRY_POINT#*: }
                     curl -Is http://$ENTRY_POINT | head -l
                     echo "URL: http://$ENTRY_POINT"
                     '''
