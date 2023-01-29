@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: aks-helloworld
+  name: chatapp
   annotations:
     kubernetes.io/ingress.class: addon-http-application-routing
 spec:
@@ -13,6 +13,6 @@ spec:
         pathType: Prefix
         backend:
           service: 
-            name: aks-helloworld
+            name: chatapp
             port: 
               number: 80
