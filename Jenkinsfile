@@ -9,8 +9,6 @@ pipeline {
         IMAGE_NAME = 'chatapp'
         IMAGE_TAG = 'latest'
         IMAGE_URL = "${IMAGE_REPO_NAME}.azurecr.io/${IMAGE_NAME}:${IMAGE_TAG}"
-        MIN_REPLICA = 1
-        MAX_REPLICA = 3
     }
 
     stages {
