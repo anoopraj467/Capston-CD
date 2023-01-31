@@ -19,6 +19,11 @@ pipeline {
               git credentialsId: 'git-token', url: 'git@github.com:anoopraj467/Capston-CD.git'
             }
         }
+        stage("Clean up"){
+            steps{
+                sh 'rm /var/lib/jenkins/.kube/config'
+            }
+        }
         stage('Configure Kubectl') {
            
             steps {
