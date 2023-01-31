@@ -36,27 +36,28 @@ pipeline {
                     script{
                         dir('helm/'){
                             sh'''
+                            az aks enable-addons --resource-group capston-res --name capston-aks --addons http_application_routing
                             HOST_NAME=$(az aks show --resource-group $RESOURCE_GROUP --name $CLUSTER_NAME --query addonProfiles.httpApplicationRouting.config.HTTPApplicationRoutingZoneName | tr -d '"')
                             echo $HOST_NAME
                             HOST_DOMAIN=$DOMAIN.$HOST_NAME
                             echo $HOST_DOMAIN
-                            helm upgrade --install $RELEASE_NAME . --set hostname=$HOST_DOMAIN --set image=$IMAGE_URL --set minReplicas=$MIN_REPLICA --set maxReplicas=$MAX_REPLICA
+                            helm upgrade --install $RELEASE_NAME . --set hostname=$HOST_DOMAIN --set image=$IMAGE_URL
                             '''
                         }
                     }
                 }
             }
-        stage('Verify Deployment'){
-            steps{
-                sh'''
-                    echo "Waiting for end point..."
-                    sleep 10
-                    ENTRY_POINT = $(kubectl get ingress -o yaml | grep 'host')
-                    curl -Is http://$ENTRY_POINT | head -l
-                    echo "URL: http://$ENTRY_POINT"
-                    '''
-            }
-        }
+//         stage('Verify Deployment'){
+//             steps{
+//                 sh'''
+//                     echo "Waiting for end point..."
+//                     sleep 10
+//                     ENTRY_POINT = $(kubectl get ingress -o yaml | grep 'host')
+//                     curl -Is http://$ENTRY_POINT | head -l
+//                     echo "URL: http://$ENTRY_POINT"
+//                     '''
+//             }
+//         }
         
         stage("Clean up"){
             steps{
