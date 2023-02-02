@@ -35,6 +35,7 @@ pipeline {
                     script{
                         dir('helm/'){
                             sh'''
+                            az aks enable-addons --resource-group capston-res --name capston-aks --addons http_application_routing
                             HOST_NAME=$(az aks show --resource-group $RESOURCE_GROUP --name $CLUSTER_NAME --query addonProfiles.httpApplicationRouting.config.HTTPApplicationRoutingZoneName | tr -d '"')
                             echo $HOST_NAME
                             HOST_DOMAIN=$DOMAIN.$HOST_NAME
